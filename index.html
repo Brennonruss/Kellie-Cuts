@@ -99,6 +99,16 @@
     .menu-toggle.active img {
       transform: rotate(90deg);
     }
+    @keyframes wiggle {
+      0% { transform: rotate(0deg); }
+      25% { transform: rotate(5deg); }
+      50% { transform: rotate(-5deg); }
+      75% { transform: rotate(5deg); }
+      100% { transform: rotate(0deg); }
+    }
+    .menu-toggle.wiggle img {
+      animation: wiggle 0.5s ease-in-out;
+    }
     /* Hero content */
     .hero {
       min-height: 100vh;
@@ -244,6 +254,16 @@
         nav.classList.remove('active');
       }
     });
+
+    // Wiggle the icon every 5 seconds when menu is closed
+    setInterval(() => {
+      if (!menuToggle.classList.contains('active')) {
+        menuToggle.classList.add('wiggle');
+        setTimeout(() => {
+          menuToggle.classList.remove('wiggle');
+        }, 500); // Match animation duration
+      }
+    }, 5000);
   </script>
 </body>
 </html>
