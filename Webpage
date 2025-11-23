@@ -11,13 +11,11 @@
       padding: 0;
       box-sizing: border-box;
     }
-
     body, html {
       height: 100%;
       font-family: 'Montserrat', sans-serif;
       overflow: hidden;
     }
-
     /* Fullscreen video background */
     #bg-video {
       position: fixed;
@@ -31,7 +29,6 @@
       z-index: -1;
       object-fit: cover;
     }
-
     /* Transparent header */
     header {
       position: fixed;
@@ -47,12 +44,10 @@
       align-items: center;
       transition: 0.4s;
     }
-
     header.scrolled {
       background: rgba(0, 0, 0, 0.7);
       padding: 20px 60px;
     }
-
     .logo {
       color: white;
       font-size: 28px;
@@ -60,13 +55,11 @@
       text-decoration: none;
       letter-spacing: 1px;
     }
-
     nav ul {
       list-style: none;
       display: flex;
       gap: 50px;
     }
-
     nav a {
       color: white;
       text-decoration: none;
@@ -76,11 +69,9 @@
       transition: opacity 0.3s;
       position: relative;
     }
-
     nav a:hover {
       opacity: 0.8;
     }
-
     nav a::after {
       content: '';
       position: absolute;
@@ -91,11 +82,9 @@
       background-color: white;
       transition: width 0.3s;
     }
-
     nav a:hover::after {
       width: 100%;
     }
-
     /* Optional: add some content in the center if you want */
     .hero {
       height: 100vh;
@@ -105,7 +94,6 @@
       color: white;
       text-align: center;
     }
-
     @media (max-width: 768px) {
       header {
         padding: 20px 30px;
@@ -120,32 +108,28 @@
   </style>
 </head>
 <body>
-
   <!-- Fullscreen background video -->
   <video autoplay muted loop playsinline id="bg-video">
-    <source src="https://i.imgur.com/tg0oreX.mp4" type="video/mp4">
+    <source src="https://i.imgur.com/6boQlTH.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
-
   <!-- Transparent header -->
   <header id="header">
     <a href="#" class="logo">YourBrand</a>
     <nav>
       <ul>
-        <li><a href="#who">Who</a></li>
-        <li><a href="#where">Where</a></li>
-        <li><a href="#book">Book now</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#where">Where we are</a></li>
+        <li><a href="#book">Book Now</a></li>
       </ul>
     </nav>
   </header>
-
   <!-- Optional hero content -->
   <!--
   <div class="hero">
     <h1>Welcome</h1>
   </div>
   -->
-
   <script>
     // Optional: make header more opaque when scrolling
     window.addEventListener('scroll', function() {
