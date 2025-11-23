@@ -109,6 +109,37 @@
     .menu-toggle.wiggle img {
       animation: wiggle 0.5s ease-in-out;
     }
+    /* Dropdown styles */
+    .dropdown {
+      position: relative;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: rgba(0, 0, 0, 0.7);
+      min-width: 160px;
+      z-index: 1;
+      list-style: none;
+      padding: 10px 0;
+      backdrop-filter: blur(10px);
+    }
+    .dropdown-content.active {
+      display: block;
+    }
+    .dropdown-content li {
+      padding: 8px 16px;
+    }
+    .dropdown-content a {
+      color: white;
+      text-decoration: none;
+      display: block;
+      font-size: 16px;
+    }
+    .dropdown-content a:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
     /* Hero content */
     .hero {
       min-height: 100vh;
@@ -177,6 +208,15 @@
         display: block;
         padding: 0 30px;
       }
+      .dropdown-content {
+        position: static;
+        background: transparent;
+        padding-left: 30px;
+        min-width: auto;
+      }
+      .dropdown-content a {
+        font-size: 18px;
+      }
       .top-slogan {
         font-size: 20px;
         letter-spacing: -1px;
@@ -208,7 +248,20 @@
     <a href="#" class="logo">KELLIE</a>
     <nav>
       <ul>
-        <li><a href="#about">About</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropbtn">Cuts</a>
+          <ul class="dropdown-content">
+            <li><a href="#">Buzz cut</a></li>
+            <li><a href="#">Crew cut</a></li>
+            <li><a href="#">Comb over</a></li>
+            <li><a href="#">French crop</a></li>
+            <li><a href="#">Pompadour</a></li>
+            <li><a href="#">Undercut</a></li>
+            <li><a href="#">Side part</a></li>
+            <li><a href="#">Caesar cut</a></li>
+            <li><a href="#">High fade</a></li>
+          </ul>
+        </li>
         <li><a href="#where">Where we are</a></li>
         <li><a href="#reviews">Reviews</a></li>
         <li><a href="#book">Book Now</a></li>
@@ -264,6 +317,27 @@
         }, 500); // Match animation duration
       }
     }, 5000);
+
+    // Dropdown toggle
+    const dropbtns = document.querySelectorAll('.dropbtn');
+    dropbtns.forEach(btn => {
+      btn.addEventListener('click', function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        const dropdownContent = this.nextElementSibling;
+        dropdownContent.classList.toggle('active');
+      });
+    });
+
+    // Close dropdown on outside click
+    document.addEventListener('click', function(event) {
+      const dropdownContents = document.querySelectorAll('.dropdown-content.active');
+      dropdownContents.forEach(content => {
+        if (!event.target.closest('.dropdown')) {
+          content.classList.remove('active');
+        }
+      });
+    });
   </script>
 </body>
 </html>
