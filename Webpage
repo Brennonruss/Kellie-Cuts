@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Site</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: 'Montserrat', sans-serif;
+      overflow: hidden;
+    }
+
+    /* Fullscreen video background */
+    #bg-video {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      transform: translateX(-50%) translateY(-50%);
+      z-index: -1;
+      object-fit: cover;
+    }
+
+    /* Transparent header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 30px 60px;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: 0.4s;
+    }
+
+    header.scrolled {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 20px 60px;
+    }
+
+    .logo {
+      color: white;
+      font-size: 28px;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: 1px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 50px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 18px;
+      letter-spacing: 0.5px;
+      transition: opacity 0.3s;
+      position: relative;
+    }
+
+    nav a:hover {
+      opacity: 0.8;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -6px;
+      left: 0;
+      background-color: white;
+      transition: width 0.3s;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Optional: add some content in the center if you want */
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 20px 30px;
+      }
+      nav ul {
+        gap: 25px;
+      }
+      nav a {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fullscreen background video -->
+  <video autoplay muted loop playsinline id="bg-video">
+    <source src="https://i.imgur.com/tg0oreX.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Transparent header -->
+  <header id="header">
+    <a href="#" class="logo">YourBrand</a>
+    <nav>
+      <ul>
+        <li><a href="#who">Who</a></li>
+        <li><a href="#where">Where</a></li>
+        <li><a href="#book">Book now</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Optional hero content -->
+  <!--
+  <div class="hero">
+    <h1>Welcome</h1>
+  </div>
+  -->
+
+  <script>
+    // Optional: make header more opaque when scrolling
+    window.addEventListener('scroll', function() {
+      const header = document.getElementById('header');
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+  </script>
+</body>
+</html>
