@@ -241,7 +241,7 @@
           <a href="#" class="dropbtn">Directions</a>
           <ul class="dropdown-content">
             <li>2331 Street rd. Bensalem PA, 19020</li>
-            <li><a href="geo:0,0?q=2331%20Street%20rd.%20Bensalem%20PA,%2019020">Open in maps</a></li>
+            <li><a href="#" id="open-maps">Open in maps</a></li>
           </ul>
         </li>
         <li><a href="#reviews">Reviews</a></li>
@@ -316,6 +316,24 @@
           content.classList.remove('active');
         }
       });
+    });
+
+    // Maps link handler
+    document.getElementById('open-maps').addEventListener('click', function(event) {
+      event.preventDefault();
+      var address = '2331 Street rd. Bensalem PA, 19020';
+      var encodedAddress = encodeURIComponent(address);
+      var userAgent = navigator.userAgent.toLowerCase();
+      if (userAgent.includes('iphone') || userAgent.includes('ipad') || userAgent.includes('ipod')) {
+        // iOS - Apple Maps
+        window.location.href = 'maps://maps.apple.com/?q=' + encodedAddress;
+      } else if (userAgent.includes('android')) {
+        // Android - Google Maps
+        window.location.href = 'geo:0,0?q=' + encodedAddress;
+      } else {
+        // Desktop/other - Google Maps web
+        window.location.href = 'https://www.google.com/maps/search/?api=1&query=' + encodedAddress;
+      }
     });
   </script>
 </body>
