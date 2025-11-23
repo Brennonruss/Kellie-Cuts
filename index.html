@@ -157,6 +157,23 @@
       height: auto;
       text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
     }
+    /* Footer */
+    footer {
+      position: fixed;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      color: white;
+      font-size: 14px;
+      z-index: 10;
+    }
+    .footer-icon {
+      width: 50px;
+      height: auto;
+      display: block;
+      margin: 0 auto 5px;
+    }
     @media (max-width: 768px) {
       header {
         padding: 20px 30px;
@@ -209,6 +226,12 @@
       .menu-toggle img {
         width: 28px;
       }
+      footer {
+        font-size: 12px;
+      }
+      .footer-icon {
+        width: 40px;
+      }
     }
   </style>
 </head>
@@ -256,6 +279,13 @@
   <div class="hero">
     <img src="https://i.imgur.com/MEkLyef.png" alt="Crafting Styles One Cut at a Time" class="hero-image">
   </div>
+  <!-- Footer -->
+  <footer>
+    <a href="https://brennonruss.netlify.app/" target="_blank">
+      <img src="https://i.imgur.com/9JdLaVo.png" alt="Icon" class="footer-icon">
+    </a>
+    <p>Russ Design Co. 2025 All Rights Reserved</p>
+  </footer>
   <script>
     // Make header more opaque when scrolling
     window.addEventListener('scroll', function() {
