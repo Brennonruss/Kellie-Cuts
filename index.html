@@ -58,6 +58,10 @@
       list-style: none;
       display: flex;
       gap: 50px;
+      flex-wrap: nowrap; /* Explicitly prevent the entire menu row from wrapping */
+    }
+    nav ul > li > a { /* Targets only top-level menu links (not dropdown items) */
+      white-space: nowrap; /* Prevent text inside individual menu items from wrapping to multiple lines */
     }
     nav a {
       color: white;
@@ -249,16 +253,16 @@
         <li class="dropdown">
           <a href="#" class="dropbtn">Cuts & Prices</a>
           <ul class="dropdown-content">
-            <li><a href="#">$30 - Men's fades, tapers & classic cuts</a></li>
-            <li><a href="#">$25 - Buzz cuts</a></li>
-            <li><a href="#">$30 - Women's haircut</a></li>
-            <li><a href="#">$25 - Children's haircut</a></li>
             <li><a href="#">$45 - Men's gray coverage</a></li>
+            <li><a href="#">$30 - Men's fades, tapers & classic cuts</a></li>
+            <li><a href="#">$30 - Shampoo & blowdry</a></li>
+            <li><a href="#">$30 - Women's haircut</a></li>
+            <li><a href="#">$25 - Buzz cuts</a></li>
+            <li><a href="#">$25 - Senior(65+) haircut</a></li>
+            <li><a href="#">$25 - Children's haircut</a></li>
+            <li><a href="#">$15 - Flat or curl iron styling</a></li>
             <li><a href="#">$10 - Beard trim</a></li>
             <li><a href="#">$10 - Facial wax</a></li>
-            <li><a href="#">$30 - Shampoo & blowdry</a></li>
-            <li><a href="#">$15 - Flat or curl iron styling</a></li>
-            <li><a href="#">$25 - Senior(65+) haircut</a></li>
           </ul>
         </li>
         <li class="dropdown">
@@ -297,27 +301,23 @@
         header.classList.remove('scrolled');
       }
     });
-
     // Mobile menu toggle
     const menuToggle = document.getElementById('menu-toggle');
     const nav = document.querySelector('nav');
-
     menuToggle.addEventListener('click', function(event) {
       event.stopPropagation();
       menuToggle.classList.toggle('active');
       nav.classList.toggle('active');
     });
-
     // Close menu on outside click
     document.addEventListener('click', function(event) {
-      if (nav.classList.contains('active') && 
-          !event.target.closest('nav') && 
+      if (nav.classList.contains('active') &&
+          !event.target.closest('nav') &&
           !event.target.closest('#menu-toggle')) {
         menuToggle.classList.remove('active');
         nav.classList.remove('active');
       }
     });
-
     // Wiggle the icon every 5 seconds when menu is closed
     setInterval(() => {
       if (!menuToggle.classList.contains('active')) {
@@ -327,7 +327,6 @@
         }, 500); // Match animation duration
       }
     }, 2500);
-
     // Dropdown toggle
     const dropbtns = document.querySelectorAll('.dropbtn');
     dropbtns.forEach(btn => {
@@ -338,7 +337,6 @@
         dropdownContent.classList.toggle('active');
       });
     });
-
     // Close dropdown on outside click
     document.addEventListener('click', function(event) {
       const dropdownContents = document.querySelectorAll('.dropdown-content.active');
@@ -348,7 +346,6 @@
         }
       });
     });
-
     // Maps link handler
     document.getElementById('open-maps').addEventListener('click', function(event) {
       event.preventDefault();
