@@ -110,8 +110,8 @@
       75% { transform: rotate(5deg); }
       100% { transform: rotate(0deg); }
     }
-    .menu-toggle.wiggle img {
-      animation: wiggle 0.5s ease-in-out;
+    .menu-toggle.wiggle {
+      animation: wiggle 0.5s ease-in-out !important;
     }
     /* Dropdown styles */
     .dropdown {
@@ -160,6 +160,57 @@
       max-width: 80%;
       height: auto;
       text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+      transition: opacity 0.5s ease-in-out;
+    }
+    .hero-image.hidden {
+      opacity: 0;
+    }
+    /* Reviews carousel */
+    .reviews-container {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: none;
+      width: 80%;
+      max-width: 600px;
+      overflow: hidden;
+      z-index: 5;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+    .reviews-container.active {
+      display: block;
+      opacity: 1;
+    }
+    .carousel {
+      display: flex;
+      animation: slide 27.5s infinite;
+    }
+    @keyframes slide {
+      0% { transform: translateX(0); }
+      3.64% { transform: translateX(0); } /* Start pause for image 1 */
+      14.55% { transform: translateX(0); } /* End pause for image 1 */
+      18.18% { transform: translateX(-100%); } /* Transition to image 2 */
+      21.82% { transform: translateX(-100%); } /* Start pause for image 2 */
+      32.73% { transform: translateX(-100%); } /* End pause for image 2 */
+      36.36% { transform: translateX(-200%); } /* Transition to image 3 */
+      40% { transform: translateX(-200%); } /* Start pause for image 3 */
+      50.91% { transform: translateX(-200%); } /* End pause for image 3 */
+      54.55% { transform: translateX(-300%); } /* Transition to image 4 */
+      58.18% { transform: translateX(-300%); } /* Start pause for image 4 */
+      69.09% { transform: translateX(-300%); } /* End pause for image 4 */
+      72.73% { transform: translateX(-400%); } /* Transition to image 5 */
+      76.36% { transform: translateX(-400%); } /* Start pause for image 5 */
+      87.27% { transform: translateX(-400%); } /* End pause for image 5 */
+      90.91% { transform: translateX(-500%); } /* Transition to loop back */
+      100% { transform: translateX(-500%); } /* End at duplicated image 1 */
+    }
+    .review-image {
+      width: 100%;
+      height: auto;
+      flex-shrink: 0;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     }
     /* Footer */
     footer {
@@ -173,11 +224,12 @@
       z-index: 10;
     }
     .footer-icon {
-      width: 50px;
+      width: 30px; /* Smaller logo */
       height: auto;
       display: block;
-      margin: 0 auto 5px;
+      margin: 0 auto 5px; /* Centered */
     }
+    /* Responsive adjustments */
     @media (max-width: 768px) {
       header {
         padding: 20px 30px;
@@ -227,6 +279,10 @@
       .hero-image {
         max-width: 90%;
       }
+      .reviews-container {
+        width: 90%;
+        max-width: 400px;
+      }
       .menu-toggle img {
         width: 28px;
       }
@@ -234,7 +290,7 @@
         font-size: 12px;
       }
       .footer-icon {
-        width: 40px;
+        width: 24px; /* Smaller logo for mobile */
       }
     }
   </style>
@@ -285,6 +341,22 @@
   <div class="hero">
     <img src="https://i.imgur.com/MEkLyef.png" alt="Crafting Styles One Cut at a Time" class="hero-image">
   </div>
+  <!-- Reviews carousel -->
+  <div class="reviews-container" id="reviews-container">
+    <div class="carousel">
+      <img src="https://i.imgur.com/e3i9vKe.png" alt="Review 1" class="review-image">
+      <img src="https://i.imgur.com/bvhYNI9.png" alt="Review 2" class="review-image">
+      <img src="https://i.imgur.com/bLDrugJ.png" alt="Review 3" class="review-image">
+      <img src="https://i.imgur.com/XtwjT7T.png" alt="Review 4" class="review-image">
+      <img src="https://i.imgur.com/7v7igBH.png" alt="Review 5" class="review-image">
+      <!-- Duplicate images for seamless looping -->
+      <img src="https://i.imgur.com/e3i9vKe.png" alt="Review 1" class="review-image">
+      <img src="https://i.imgur.com/bvhYNI9.png" alt="Review 2" class="review-image">
+      <img src="https://i.imgur.com/bLDrugJ.png" alt="Review 3" class="review-image">
+      <img src="https://i.imgur.com/XtwjT7T.png" alt="Review 4" class="review-image">
+      <img src="https://i.imgur.com/7v7igBH.png" alt="Review 5" class="review-image">
+    </div>
+  </div>
   <!-- Footer -->
   <footer>
     <a href="https://brennonruss.netlify.app/" target="_blank">
@@ -319,8 +391,8 @@
         nav.classList.remove('active');
       }
     });
-    // Wiggle the icon every 5 seconds when menu is closed
-    setInterval(() => {
+    // Wiggle the icon every 2.5 seconds when menu is closed
+    const wiggleInterval = setInterval(() => {
       if (!menuToggle.classList.contains('active')) {
         menuToggle.classList.add('wiggle');
         setTimeout(() => {
@@ -363,6 +435,54 @@
         // Desktop/other - Google Maps web
         window.location.href = 'https://www.google.com/maps/search/?api=1&query=' + encodedAddress;
       }
+    });
+    // Reviews carousel toggle
+    const reviewsLink = document.querySelector('a[href="#reviews"]');
+    const reviewsContainer = document.getElementById('reviews-container');
+    const carousel = reviewsContainer.querySelector('.carousel');
+    const heroImage = document.querySelector('.hero-image');
+    let currentIndex = 0;
+    const totalImages = 5; // Number of unique images
+    const cycleDuration = 27.5; // Total animation duration in seconds
+    reviewsLink.addEventListener('click', function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      // Hide hero image and show carousel
+      heroImage.classList.add('hidden');
+      reviewsContainer.classList.add('active');
+      // Reset carousel to start
+      carousel.style.animation = 'none';
+      carousel.offsetHeight; // Trigger reflow
+      carousel.style.animation = `slide ${cycleDuration}s infinite`;
+      currentIndex = 0;
+      // Close mobile menu if open
+      if (nav.classList.contains('active')) {
+        menuToggle.classList.remove('active');
+        nav.classList.remove('active');
+      }
+    });
+    // Close carousel on outside click
+    document.addEventListener('click', function(event) {
+      if (reviewsContainer.classList.contains('active') &&
+          !event.target.closest('.reviews-container') &&
+          !event.target.closest('a[href="#reviews"]')) {
+        reviewsContainer.classList.remove('active');
+        heroImage.classList.remove('hidden');
+        // Reset carousel
+        carousel.style.animation = 'none';
+        currentIndex = 0;
+      }
+    });
+    // Advance to next review on carousel click/tap
+    carousel.addEventListener('click', function(event) {
+      event.stopPropagation();
+      currentIndex = (currentIndex + 1) % totalImages;
+      const offset = -(currentIndex * 100); // Percentage offset for next image
+      // Restart animation from current image
+      carousel.style.animation = 'none';
+      carousel.offsetHeight; // Trigger reflow
+      carousel.style.animation = `slide ${cycleDuration}s infinite`;
+      carousel.style.transform = `translateX(${offset}%)`;
     });
   </script>
 </body>
